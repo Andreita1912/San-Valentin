@@ -14,35 +14,30 @@ body {
     background: url('https://i.pinimg.com/736x/b3/c8/c1/b3c8c10c6f01b1b1bf4d26a53871976c.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
+    transition: filter 0.3s ease;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 0;
+body.blurred {
+    filter: blur(8px);
 }
 
 .main-content {
     text-align: center;
     padding: 80px 20px;
     min-height: 100vh;
-    position: relative;
-    z-index: 1;
 }
 
 h1 {
     font-family: 'Press Start 2P', cursive;
     font-size: 28px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     text-shadow: 4px 4px 0 #000;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
+    gap: 60px;
     max-width: 900px;
     margin: auto;
 }
@@ -55,6 +50,11 @@ h1 {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    transition: transform 0.2s ease;
+}
+
+.chest:hover {
+    transform: scale(1.1);
 }
 
 .chest-text {
@@ -64,13 +64,65 @@ h1 {
     text-shadow: 2px 2px 0 #000;
 }
 
-.content-box {
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
     display: none;
-    margin-top: 15px;
-    font-family: Arial, sans-serif;
-    background: rgba(0,0,0,0.7);
-    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Panel */
+.panel {
+    background: rgba(15,15,15,0.95);
+    padding: 40px;
+    border-radius: 16px;
+    max-width: 600px;
+    text-align: center;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.overlay.active .panel {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.panel h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.panel p {
+    line-height: 1.7;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    background: #2ecc71;
+    border: none;
+    padding: 12px 25px;
     border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.close-btn:hover {
+    background: #27ae60;
 }
 </style>
 </head>
@@ -82,43 +134,64 @@ h1 {
 
     <div class="grid">
 
-        <div onclick="toggleChest(1)">
-            <div id="chest1" class="chest"
-            style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+        <div onclick="openCofre('dia')">
+            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
             <div class="chest-text">El día que nos amarramos ☠️</div>
-            <div id="content1" class="content-box">Aquí empieza nuestra historia 💚</div>
         </div>
 
-        <div onclick="toggleChest(2)">
-            <div id="chest2" class="chest"
-            style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+        <div onclick="openCofre('amo')">
+            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
             <div class="chest-text">Lo que más amo de ti 💚</div>
-            <div id="content2" class="content-box">Todo lo que amo de ti es infinito 😭</div>
+        </div>
+
+        <div onclick="openCofre('momentos')">
+            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Mis momentos favs contigo ✨</div>
         </div>
 
     </div>
 </div>
 
+<!-- Overlay -->
+<div class="overlay" id="overlay">
+    <div class="panel">
+        <h2 id="panelTitle"></h2>
+        <p id="panelContent"></p>
+        <button class="close-btn" onclick="closeCofre()">Cerrar cofre</button>
+    </div>
+</div>
+
 <script>
 
-function toggleChest(num) {
+function openCofre(tipo) {
 
-    // 🔊 Reproducir sonido directamente aquí
-    let sound = new Audio("click.mp3");
-    sound.play();
+    document.body.classList.add("blurred");
 
-    let chest = document.getElementById("chest"+num);
-    let content = document.getElementById("content"+num);
+    const overlay = document.getElementById("overlay");
+    const title = document.getElementById("panelTitle");
+    const content = document.getElementById("panelContent");
 
-    if (content.style.display === "block") {
-        content.style.display = "none";
-        chest.style.backgroundImage =
-        "url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png')";
-    } else {
-        content.style.display = "block";
-        chest.style.backgroundImage =
-        "url('https://p.novaskin.me/6987963180.png')";
+    if(tipo === "dia"){
+        title.innerText = "El día que nos amarramos ☠️";
+        content.innerText = "Oficialmente el día en que iniciamos la partida más importante de nuestras vidas.\n\nDesde ese momento supe que quería construir contigo algo más grande que cualquier mundo en Minecraft.\n\nSomos team. Somos casa. Somos futuro.";
     }
+
+    if(tipo === "amo"){
+        title.innerText = "Lo que más amo de ti 💚";
+        content.innerText = "Amo tu forma de ser, tu humor, tu lado romántico escondido y cómo haces que todo sea más divertido.\n\nIncluso cuando te robas el loot… igual te elijo.";
+    }
+
+    if(tipo === "momentos"){
+        title.innerText = "Mis momentos favs contigo ✨";
+        content.innerText = "Cuando jugamos hasta tarde.\nCuando vemos atardeceres en Minecraft.\nCuando haces bromas tontas.\n\nY cualquier momento donde estés tú.";
+    }
+
+    overlay.classList.add("active");
+}
+
+function closeCofre(){
+    document.getElementById("overlay").classList.remove("active");
+    document.body.classList.remove("blurred");
 }
 
 </script>
