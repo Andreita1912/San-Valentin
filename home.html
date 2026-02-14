@@ -17,7 +17,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Overlay */
 body::before {
     content: "";
     position: fixed;
@@ -26,7 +25,6 @@ body::before {
     z-index: 0;
 }
 
-/* Loading screen */
 #loading-screen {
     position: fixed;
     width: 100%;
@@ -54,7 +52,6 @@ body::before {
     background: #00ff64;
 }
 
-/* Main content */
 .main-content {
     display: none;
     text-align: center;
@@ -71,7 +68,6 @@ h1 {
     text-shadow: 4px 4px 0 #000;
 }
 
-/* Grid */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -80,7 +76,6 @@ h1 {
     margin: auto;
 }
 
-/* Cofre */
 .chest {
     cursor: pointer;
     width: 130px;
@@ -179,9 +174,8 @@ h1 {
     </div>
 </div>
 
-<!-- Click sound -->
 <audio id="clickSound" preload="auto">
-<source src="https://www.myinstants.com/media/sounds/minecraft-click.mp3" type="audio/mpeg">
+<source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -204,7 +198,6 @@ function toggleChest(num) {
     let content = document.getElementById("content"+num);
     let sound = document.getElementById("clickSound");
 
-    // Reinicia sonido siempre
     sound.currentTime = 0;
     sound.play();
 
