@@ -11,10 +11,19 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #ff9966, #ff5e62, #2c3e50);
-    background-attachment: fixed;
+    background: url('https://i.pinimg.com/736x/b3/c8/c1/b3c8c10c6f01b1b1bf4d26a53871976c.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: white;
     overflow-x: hidden;
+}
+
+/* Overlay suave para que el texto se lea bien */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 0;
 }
 
 /* Pantalla de carga */
@@ -51,14 +60,15 @@ body {
     text-align: center;
     padding: 80px 20px;
     min-height: 100vh;
-    backdrop-filter: blur(4px);
+    position: relative;
+    z-index: 1;
 }
 
 h1 {
     font-family: 'Press Start 2P', cursive;
-    font-size: 26px;
+    font-size: 28px;
     margin-bottom: 50px;
-    text-shadow: 3px 3px 0 #1a1a1a;
+    text-shadow: 4px 4px 0 #000;
 }
 
 /* Grid tipo inventario */
