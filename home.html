@@ -16,13 +16,8 @@ body {
     color: white;
 }
 
-#main {
-    transition: filter 0.3s ease;
-}
-
-#main.blurred {
-    filter: blur(6px);
-}
+#main { transition: filter 0.3s ease; }
+#main.blurred { filter: blur(6px); }
 
 .main-content {
     text-align: center;
@@ -56,9 +51,7 @@ h1 {
     transition: transform 0.2s ease;
 }
 
-.chest:hover {
-    transform: scale(1.1);
-}
+.chest:hover { transform: scale(1.1); }
 
 .chest-text {
     font-family: 'Press Start 2P', cursive;
@@ -98,9 +91,7 @@ h1 {
     overflow-y: auto;
 }
 
-.overlay.active .panel {
-    transform: scale(1);
-}
+.overlay.active .panel { transform: scale(1); }
 
 .panel h2 {
     font-family: 'Press Start 2P', cursive;
@@ -125,167 +116,155 @@ h1 {
     transition: 0.2s ease;
 }
 
-.close-btn:hover {
-    background: #27ae60;
-}
+.close-btn:hover { background: #27ae60; }
 
-.song-block {
-    margin-bottom: 35px;
-}
-
-.song-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
+.song-block { margin-bottom: 35px; }
+.song-title { font-weight: bold; margin-bottom: 10px; font-size: 14px; }
 </style>
 </head>
 
 <body>
 
 <div id="main">
-
 <div class="main-content">
-    <h1>Feliz San Valentín,<br>mi bouyangg 💚</h1>
 
-    <div class="grid">
+<h1>Feliz San Valentín,<br>mi bouyangg 💚</h1>
 
-        <div onclick="openCofre('dia')">
-            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">El día que nos amarramos ☠️</div>
-        </div>
+<div class="grid">
 
-        <div onclick="openCofre('amo')">
-            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Lo que más amo de ti 💚</div>
-        </div>
-
-        <div onclick="openCofre('momentos')">
-            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Mis momentos favs contigo ✨</div>
-        </div>
-
-        <div onclick="openCofre('museo')">
-            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Nuestro museo 🏠</div>
-        </div>
-
-        <div onclick="openCofre('canciones')">
-            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Canciones que me recuerdan a ti 🎵</div>
-        </div>
-
-    </div>
+<div onclick="openCofre(this,'dia')">
+<div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+<div class="chest-text">El día que nos amarramos ☠️</div>
 </div>
 
+<div onclick="openCofre(this,'amo')">
+<div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+<div class="chest-text">Lo que más amo de ti 💚</div>
+</div>
+
+<div onclick="openCofre(this,'momentos')">
+<div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+<div class="chest-text">Mis momentos favs contigo ✨</div>
+</div>
+
+<div onclick="openCofre(this,'museo')">
+<div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+<div class="chest-text">Nuestro museo 🏠</div>
+</div>
+
+<div onclick="openCofre(this,'canciones')">
+<div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+<div class="chest-text">Canciones que me recuerdan a ti 🎵</div>
+</div>
+
+</div>
+</div>
 </div>
 
 <div class="overlay" id="overlay">
-    <div class="panel">
-        <h2 id="panelTitle"></h2>
-        <div id="panelContent"></div>
-        <br>
-        <button class="close-btn" onclick="closeCofre()">Cerrar cofre</button>
-    </div>
+<div class="panel">
+<h2 id="panelTitle"></h2>
+<div id="panelContent"></div>
+<br>
+<button class="close-btn" onclick="closeCofre()">Cerrar cofre</button>
+</div>
 </div>
 
 <script>
 
-function openCofre(tipo) {
+let currentChest = null;
+const closedChest = "https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png";
+const openChest = "https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/1/18/Chest_open.png";
 
-    document.getElementById("main").classList.add("blurred");
-    document.getElementById("overlay").classList.add("active");
+function openCofre(element,tipo){
 
-    const title = document.getElementById("panelTitle");
-    const content = document.getElementById("panelContent");
+currentChest = element.querySelector(".chest");
+currentChest.style.backgroundImage = `url('${openChest}')`;
 
-    if(tipo === "dia"){
-        title.innerText = "El día que nos amarramos ☠️";
-        content.innerText =
-        "Mi vida, ¿cómo olvidar el día que me obligaste a ser tu novia?\n\nDesde ese momento, incluso en las altas y en las más bajas y peores, te he seguido eligiendo siempre, siempre.\n\nDesde ese día, e incluso antes, yo ya veía un futuro contigo… uno real, no solo de maicra jajaja.";
-    }
+document.getElementById("main").classList.add("blurred");
+document.getElementById("overlay").classList.add("active");
 
-    if(tipo === "amo"){
-        title.innerText = "Lo que más amo de ti 💚";
-        content.innerText =
-        "A diario te repito cuánto te amo y lo muy enamorada que estoy de ti.\n\nNo podría definir lo que más me gusta, porque eres tú enterito lo que me encanta.\n\nMe encantan tus ojitos, tus cejas, lo bruto que eres para los chistes, y cómo si estoy de mal humor logras sacarme una sonrisa (a veces v:).\n\nAmo que seas súper inteligente y siempre estés como el perrito con lentes del meme.\n\nTe amo mucho muchísimo y amo todo de ti.";
-    }
+const title = document.getElementById("panelTitle");
+const content = document.getElementById("panelContent");
 
-    if(tipo === "momentos"){
-        title.innerText = "Mis momentos favs contigo ✨";
-        content.innerText =
-        "Cada momento es especial a tu lado.\n\nSin embargo, siento que los viajes a Brasil lo han sido todo.\n\nNuevas experiencias, viajar, dormir juntitos, reírnos full y estar modo payasos.\n\nAmooouuu.";
-    }
+if(tipo==="dia"){
+title.innerText="El día que nos amarramos ☠️";
+content.innerText="Mi vida, ¿cómo olvidar el día que me obligaste a ser tu novia?\n\nSiempre te he elegido.\n\nUno real, no solo de maicra jajaja.";
+}
 
-    if(tipo === "museo"){
-        title.innerText = "Nuestra galería";
-        content.innerHTML = `
-        <div style="margin-bottom:25px; font-size:14px; opacity:0.8;">
-            Recuerdos que no necesitan explicación.
-        </div>
+if(tipo==="amo"){
+title.innerText="Lo que más amo de ti 💚";
+content.innerText="Me encantan tus ojitos, tus cejas, lo bruto que eres para los chistes y cómo siempre logras sacarme una sonrisa.\n\nTe amo mucho muchísimo.";
+}
 
-        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
-            <img src="foto1.jpeg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer;">
-            <img src="foto2.jpg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer;">
-            <img src="foto3.jpeg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer;">
-            <img src="foto4.jpeg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer;">
-        </div>
-        `;
-    }
+if(tipo==="momentos"){
+title.innerText="Mis momentos favs contigo ✨";
+content.innerText="Cada momento contigo es único y especial mi vida.\n\n Pero sin duda Brasil, risas a full, dormir juntitos y estar modo payasos.\n\nAmooouuu.";
+}
 
-    if(tipo === "canciones"){
-        title.innerText = "Canciones que me recuerdan a ti 🎵";
-        content.innerHTML = `
-        <div class="song-block">
-            <div class="song-title">La que me pone feliz 💚</div>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4u5xLMRN0dgKBFFN8FiNgv" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
-        </div>
+if(tipo==="museo"){
+title.innerText="Nuestra galería";
+content.innerHTML=`
+<div style="margin-bottom:20px;opacity:0.8;">Recuerdos que no necesitan explicación.</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+<img src="foto1.jpeg" onclick="expandImg(this.src)" style="width:100%;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.5);cursor:pointer;">
+<img src="foto2.jpg" onclick="expandImg(this.src)" style="width:100%;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.5);cursor:pointer;">
+<img src="foto3.jpeg" onclick="expandImg(this.src)" style="width:100%;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.5);cursor:pointer;">
+<img src="foto4.jpeg" onclick="expandImg(this.src)" style="width:100%;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.5);cursor:pointer;">
+</div>`;
+}
 
-        <div class="song-block">
-            <div class="song-title">Te amo mi bebé precioso 🥺</div>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1s3WD4gbNoEXHiuSTmAKaK" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
-        </div>
+if(tipo==="canciones"){
+title.innerText="Canciones que me recuerdan a ti 🎵";
+content.innerHTML=`
+<div class="song-block">
+<div class="song-title">La que me pone feliz 💚</div>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4u5xLMRN0dgKBFFN8FiNgv" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
+</div>
+<div class="song-block">
+<div class="song-title">Te amo mi bebé precioso 🥺</div>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1s3WD4gbNoEXHiuSTmAKaK" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
+</div>
+<div class="song-block">
+<div class="song-title">Te la dedico mi corazone 🤍</div>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/04CRXU9tqLWR6UTBu5bq9P" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
+</div>
+<div class="song-block">
+<div class="song-title">Pensé en ti y lo mucho que te extraño :c</div>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HMYsT5mnqQ57tVjvqlETb" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
+</div>`;
+}
 
-        <div class="song-block">
-            <div class="song-title">Te la dedico mi corazone 🤍</div>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/04CRXU9tqLWR6UTBu5bq9P" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
-        </div>
-
-        <div class="song-block">
-            <div class="song-title">La escuché y pensé en ti :c</div>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HMYsT5mnqQ57tVjvqlETb" width="100%" height="80" frameBorder="0" allow="encrypted-media"></iframe>
-        </div>
-        `;
-    }
 }
 
 function closeCofre(){
-    document.getElementById("overlay").classList.remove("active");
-    document.getElementById("main").classList.remove("blurred");
+document.getElementById("overlay").classList.remove("active");
+document.getElementById("main").classList.remove("blurred");
+if(currentChest){
+currentChest.style.backgroundImage=`url('${closedChest}')`;
+currentChest=null;
+}
 }
 
 function expandImg(src){
-    const overlay = document.createElement("div");
-    overlay.style.position = "fixed";
-    overlay.style.inset = "0";
-    overlay.style.background = "rgba(0,0,0,0.85)";
-    overlay.style.display = "flex";
-    overlay.style.justifyContent = "center";
-    overlay.style.alignItems = "center";
-    overlay.style.zIndex = "2000";
-
-    const img = document.createElement("img");
-    img.src = src;
-    img.style.maxWidth = "80%";
-    img.style.maxHeight = "80%";
-    img.style.borderRadius = "16px";
-
-    overlay.appendChild(img);
-    overlay.onclick = () => document.body.removeChild(overlay);
-    document.body.appendChild(overlay);
+const overlay=document.createElement("div");
+overlay.style.position="fixed";
+overlay.style.inset="0";
+overlay.style.background="rgba(0,0,0,0.85)";
+overlay.style.display="flex";
+overlay.style.justifyContent="center";
+overlay.style.alignItems="center";
+overlay.style.zIndex="2000";
+const img=document.createElement("img");
+img.src=src;
+img.style.maxWidth="80%";
+img.style.maxHeight="80%";
+img.style.borderRadius="16px";
+overlay.appendChild(img);
+overlay.onclick=()=>document.body.removeChild(overlay);
+document.body.appendChild(overlay);
 }
 
 </script>
-
 </body>
 </html>
