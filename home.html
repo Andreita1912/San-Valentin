@@ -14,7 +14,6 @@ body {
     background: url('https://i.pinimg.com/736x/b3/c8/c1/b3c8c10c6f01b1b1bf4d26a53871976c.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    overflow-x: hidden;
 }
 
 body::before {
@@ -25,35 +24,7 @@ body::before {
     z-index: 0;
 }
 
-#loading-screen {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: #00ff64;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Press Start 2P', cursive;
-    z-index: 9999;
-}
-
-.progress-bar {
-    width: 300px;
-    height: 20px;
-    border: 3px solid #00ff64;
-    margin-top: 20px;
-}
-
-.progress {
-    height: 100%;
-    width: 0%;
-    background: #00ff64;
-}
-
 .main-content {
-    display: none;
     text-align: center;
     padding: 80px 20px;
     min-height: 100vh;
@@ -84,11 +55,6 @@ h1 {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: 0.2s ease;
-}
-
-.chest:hover {
-    transform: scale(1.1);
 }
 
 .chest-text {
@@ -102,9 +68,7 @@ h1 {
     display: none;
     margin-top: 15px;
     font-family: Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0,0,0,0.7);
     padding: 12px;
     border-radius: 8px;
 }
@@ -113,15 +77,7 @@ h1 {
 
 <body>
 
-<div id="loading-screen">
-    <div>Loading world...</div>
-    <div style="margin-top:15px;">Building our forever 💚</div>
-    <div class="progress-bar">
-        <div class="progress" id="progress"></div>
-    </div>
-</div>
-
-<div class="main-content" id="main-content">
+<div class="main-content">
     <h1>Feliz San Valentín,<br>mi bouyangg 💚</h1>
 
     <div class="grid">
@@ -130,45 +86,14 @@ h1 {
             <div id="chest1" class="chest"
             style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
             <div class="chest-text">El día que nos amarramos ☠️</div>
-            <div id="content1" class="content-box">
-                Aquí empieza nuestra historia 💚
-            </div>
+            <div id="content1" class="content-box">Aquí empieza nuestra historia 💚</div>
         </div>
 
         <div onclick="toggleChest(2)">
             <div id="chest2" class="chest"
             style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
             <div class="chest-text">Lo que más amo de ti 💚</div>
-            <div id="content2" class="content-box">
-                Todo lo que amo de ti es infinito… 😭
-            </div>
-        </div>
-
-        <div onclick="toggleChest(3)">
-            <div id="chest3" class="chest"
-            style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Mis momentos favs contigo ✨</div>
-            <div id="content3" class="content-box">
-                Los momentos más épicos 🎮💚
-            </div>
-        </div>
-
-        <div onclick="toggleChest(4)">
-            <div id="chest4" class="chest"
-            style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Nuestro museo 🏠</div>
-            <div id="content4" class="content-box">
-                Nuestra galería de recuerdos 📸
-            </div>
-        </div>
-
-        <div onclick="toggleChest(5)">
-            <div id="chest5" class="chest"
-            style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
-            <div class="chest-text">Canciones que me recuerdan a ti 🎵</div>
-            <div id="content5" class="content-box">
-                Aquí irán los reproductores 🎧
-            </div>
+            <div id="content2" class="content-box">Todo lo que amo de ti es infinito 😭</div>
         </div>
 
     </div>
@@ -176,40 +101,14 @@ h1 {
 
 <script>
 
-// SONIDO LOCAL (asegúrate de que click.mp3 esté en el repo)
-let clickSound = new Audio("click.mp3");
-clickSound.preload = "auto";
-
-// Desbloquea audio en primer click (Safari fix)
-document.addEventListener("click", function unlockAudio() {
-    clickSound.play().then(() => {
-        clickSound.pause();
-        clickSound.currentTime = 0;
-    }).catch(() => {});
-    document.removeEventListener("click", unlockAudio);
-});
-
-let progress = document.getElementById("progress");
-let width = 0;
-
-let interval = setInterval(function() {
-    if (width >= 100) {
-        clearInterval(interval);
-        document.getElementById("loading-screen").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-    } else {
-        width++;
-        progress.style.width = width + "%";
-    }
-}, 20);
-
 function toggleChest(num) {
+
+    // 🔊 Reproducir sonido directamente aquí
+    let sound = new Audio("click.mp3");
+    sound.play();
 
     let chest = document.getElementById("chest"+num);
     let content = document.getElementById("content"+num);
-
-    clickSound.currentTime = 0;
-    clickSound.play();
 
     if (content.style.display === "block") {
         content.style.display = "none";
