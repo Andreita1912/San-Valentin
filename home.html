@@ -86,15 +86,15 @@ h1 {
 }
 
 .panel {
-    background: rgba(20,20,20,0.95);
+    background: rgba(20,20,20,0.97);
     padding: 40px;
     border-radius: 18px;
-    max-width: 700px;
-    width: 90%;
+    max-width: 750px;
+    width: 95%;
     text-align: center;
     transform: scale(0.8);
     transition: transform 0.3s ease;
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: auto;
 }
 
@@ -127,6 +127,16 @@ h1 {
 
 .close-btn:hover {
     background: #27ae60;
+}
+
+.song-block {
+    margin-bottom: 35px;
+}
+
+.song-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -189,72 +199,47 @@ function openCofre(tipo) {
     const title = document.getElementById("panelTitle");
     const content = document.getElementById("panelContent");
 
-    if(tipo === "dia"){
-        title.innerText = "El día que nos amarramos ☠️";
-        content.innerText =
-        "Mi vida, ¿cómo olvidar el día que me obligaste a ser tu novia?\n\nDesde ese momento, incluso en las altas y en las más bajas y peores, te he seguido eligiendo siempre, siempre.\n\nDesde ese día, e incluso antes, yo ya veía un futuro contigo… uno real, no solo de maicra jajaja.";
-    }
-
-    if(tipo === "amo"){
-        title.innerText = "Lo que más amo de ti 💚";
-        content.innerText =
-        "A diario te repito cuánto te amo y lo muy enamorada que estoy de ti.\n\nNo podría definir lo que más me gusta, porque eres tú enterito lo que me encanta.\n\nMe encantan tus ojitos, tus cejas, lo bruto que eres para los chistes, y cómo si estoy de mal humor logras sacarme una sonrisa (a veces v:).\n\nAmo que seas súper inteligente y siempre estés como el perrito con lentes del meme.\n\nTe amo mucho muchísimo y amo todo de ti.";
-    }
-
-    if(tipo === "momentos"){
-        title.innerText = "Mis momentos favs contigo ✨";
-        content.innerText =
-        "Cada momento es especial a tu lado.\n\nSin embargo, siento que los viajes a Brasil lo han sido todo.\n\nNuevas experiencias, viajar, dormir juntitos, reírnos full y estar modo payasos.\n\nAmooouuu.";
-    }
-
-    if(tipo === "museo"){
-        title.innerText = "Nuestra galería";
-        content.innerHTML = `
-        <div style="margin-bottom:25px; font-size:14px; opacity:0.8;">
-            Recuerdos que no necesitan explicación.
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
-            <img src="foto1.jpeg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer; transition:0.3s;">
-            <img src="foto2.jpg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer; transition:0.3s;">
-            <img src="foto3.jpeg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer; transition:0.3s;">
-            <img src="foto4.jpeg" onclick="expandImg(this.src)" style="width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); cursor:pointer; transition:0.3s;">
-        </div>
-        `;
-    }
-
     if(tipo === "canciones"){
         title.innerText = "Canciones que me recuerdan a ti 🎵";
-        content.innerText =
-        "Aquí irán esas canciones que cada vez que suenan me hacen pensar en ti.\n\nAlgunas felices.\nAlgunas intensas.\nAlgunas dramáticas (porque obvio soy yo).\n\nPero todas tuyas.";
+
+        content.innerHTML = `
+        
+        <div class="song-block">
+            <div class="song-title">La que me pone feliz de solo escuchar unos segundos 💚</div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4u5xLMRN0dgKBFFN8FiNgv" 
+            width="100%" height="80" frameBorder="0" allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+
+        <div class="song-block">
+            <div class="song-title">Te amo mi bebé precioso, para tú 🥺</div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1s3WD4gbNoEXHiuSTmAKaK" 
+            width="100%" height="80" frameBorder="0" allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+
+        <div class="song-block">
+            <div class="song-title">Te la dedico mi corazone 💕</div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/04CRXU9tqLWR6UTBu5bq9P" 
+            width="100%" height="80" frameBorder="0" allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+
+        <div class="song-block">
+            <div class="song-title">La escuché y pensé en ti y lo mucho que te extraño :c</div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HMYsT5mnqQ57tVjvqlETb" 
+            width="100%" height="80" frameBorder="0" allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+        `;
+        return;
     }
+
 }
 
 function closeCofre(){
     document.getElementById("overlay").classList.remove("active");
     document.getElementById("main").classList.remove("blurred");
-}
-
-function expandImg(src){
-    const overlay = document.createElement("div");
-    overlay.style.position = "fixed";
-    overlay.style.inset = "0";
-    overlay.style.background = "rgba(0,0,0,0.85)";
-    overlay.style.display = "flex";
-    overlay.style.justifyContent = "center";
-    overlay.style.alignItems = "center";
-    overlay.style.zIndex = "2000";
-
-    const img = document.createElement("img");
-    img.src = src;
-    img.style.maxWidth = "80%";
-    img.style.maxHeight = "80%";
-    img.style.borderRadius = "16px";
-    img.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8)";
-
-    overlay.appendChild(img);
-    overlay.onclick = () => document.body.removeChild(overlay);
-    document.body.appendChild(overlay);
 }
 
 </script>
