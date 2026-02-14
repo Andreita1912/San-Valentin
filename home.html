@@ -175,6 +175,20 @@ h1 {
 </div>
 
 <script>
+
+// SONIDO LOCAL (asegúrate de que click.mp3 esté en el repo)
+let clickSound = new Audio("click.mp3");
+clickSound.preload = "auto";
+
+// Desbloquea audio en primer click (Safari fix)
+document.addEventListener("click", function unlockAudio() {
+    clickSound.play().then(() => {
+        clickSound.pause();
+        clickSound.currentTime = 0;
+    }).catch(() => {});
+    document.removeEventListener("click", unlockAudio);
+});
+
 let progress = document.getElementById("progress");
 let width = 0;
 
@@ -194,9 +208,8 @@ function toggleChest(num) {
     let chest = document.getElementById("chest"+num);
     let content = document.getElementById("content"+num);
 
-    // SONIDO LOCAL (esto sí funciona)
-    let sound = new Audio("click.mp3");
-    sound.play();
+    clickSound.currentTime = 0;
+    clickSound.play();
 
     if (content.style.display === "block") {
         content.style.display = "none";
@@ -208,6 +221,7 @@ function toggleChest(num) {
         "url('https://p.novaskin.me/6987963180.png')";
     }
 }
+
 </script>
 
 </body>
