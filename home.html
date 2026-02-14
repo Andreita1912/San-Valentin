@@ -67,46 +67,53 @@ body::before {
 h1 {
     font-family: 'Press Start 2P', cursive;
     font-size: 28px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-shadow: 4px 4px 0 #000;
 }
 
-/* Grid */
+/* Chest grid */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 30px;
-    max-width: 1000px;
+    max-width: 900px;
     margin: auto;
 }
 
-/* Chest style */
 .chest {
-    background: #8B5A2B;
-    border: 5px solid #5c3a1b;
-    padding: 25px 15px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 12px;
     cursor: pointer;
-    box-shadow: 8px 8px 0 #3a220f;
-    transition: all 0.2s ease;
-    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.2s ease;
 }
 
 .chest:hover {
-    background: #a66b35;
-    transform: translate(3px,3px);
-    box-shadow: 4px 4px 0 #3a220f;
+    transform: scale(1.1);
 }
 
-.chest-content {
+/* Text below cofre */
+.chest-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    margin-top: 8px;
+    text-shadow: 2px 2px 0 #000;
+    color: #fff;
+}
+
+/* Cofre contenido */
+.content-box {
     display: none;
-    margin-top: 20px;
+    margin-top: 15px;
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.6;
     background: rgba(0,0,0,0.6);
-    padding: 15px;
+    padding: 12px;
+    border-radius: 8px;
 }
 </style>
 </head>
@@ -126,38 +133,48 @@ h1 {
 
     <div class="grid">
 
-        <div class="chest" onclick="toggleChest(this)">
-            🧰 El día que nos amarramos ☠️
-            <div class="chest-content">
-                Aquí irá la historia de cómo empezó todo 💚
+        <!-- Cofre 1 -->
+        <div onclick="toggleChest(1)">
+            <div id="chest1" class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">El día que nos amarramos ☠️</div>
+            <div id="content1" class="content-box">
+                Aquí empieza nuestra historia 💚
             </div>
         </div>
 
-        <div class="chest" onclick="toggleChest(this)">
-            🧰 Lo que más amo de ti 💚
-            <div class="chest-content">
-                Aquí escribirás todo lo que amas de él 😭
+        <!-- Cofre 2 -->
+        <div onclick="toggleChest(2)">
+            <div id="chest2" class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Lo que más amo de ti 💚</div>
+            <div id="content2" class="content-box">
+                Todo lo que amo de ti es infinito… 😭
             </div>
         </div>
 
-        <div class="chest" onclick="toggleChest(this)">
-            🧰 Mis momentos favs contigo ✨
-            <div class="chest-content">
-                Aquí irán sus recuerdos juntos 🎮
+        <!-- Cofre 3 -->
+        <div onclick="toggleChest(3)">
+            <div id="chest3" class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Mis momentos favs contigo ✨</div>
+            <div id="content3" class="content-box">
+                Los momentos más épicos 🎮💚
             </div>
         </div>
 
-        <div class="chest" onclick="toggleChest(this)">
-            🧰 Nuestro museo 🏠
-            <div class="chest-content">
-                Aquí luego pondremos las fotos 📸
+        <!-- Cofre 4 -->
+        <div onclick="toggleChest(4)">
+            <div id="chest4" class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Nuestro museo 🏠</div>
+            <div id="content4" class="content-box">
+                Nuestra galería de recuerdos 📸
             </div>
         </div>
 
-        <div class="chest" onclick="toggleChest(this)">
-            🧰 Canciones que me recuerdan a ti 🎵
-            <div class="chest-content">
-                Aquí irán los reproductores 🎧
+        <!-- Cofre 5 -->
+        <div onclick="toggleChest(5)">
+            <div id="chest5" class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Canciones que me recuerdan a ti 🎵</div>
+            <div id="content5" class="content-box">
+                Aquí van los reproductores 🎧
             </div>
         </div>
 
@@ -184,14 +201,17 @@ let interval = setInterval(function() {
     }
 }, 20);
 
-function toggleChest(element) {
-    let content = element.querySelector(".chest-content");
+function toggleChest(num) {
+    let chest = document.getElementById("chest"+num);
+    let content = document.getElementById("content"+num);
 
     if (content.style.display === "block") {
         content.style.display = "none";
+        chest.style.backgroundImage = "url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png')";
     } else {
         content.style.display = "block";
         document.getElementById("clickSound").play();
+        chest.style.backgroundImage = "url('https://p.novaskin.me/6987963180.png')";
     }
 }
 </script>
