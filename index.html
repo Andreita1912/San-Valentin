@@ -96,13 +96,24 @@ button:hover {
     <div id="error"></div>
 </div>
 
+<!-- Sonido mundo Minecraft -->
+<audio id="worldSound">
+    <source src="https://www.myinstants.com/media/sounds/minecraft-levelup.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 function checkCode() {
     const code = document.getElementById("codeInput").value;
     const error = document.getElementById("error");
 
     if (code === "1912") {
-        window.location.href = "home.html"; 
+        const sound = document.getElementById("worldSound");
+        sound.play();
+        
+        setTimeout(() => {
+            window.location.href = "home.html";
+        }, 1500);
+
     } else {
         error.textContent = "Tas en nada, fuera de aquí";
     }
