@@ -14,11 +14,15 @@ body {
     background: url('https://i.pinimg.com/736x/b3/c8/c1/b3c8c10c6f01b1b1bf4d26a53871976c.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
+}
+
+/* CONTENIDO PRINCIPAL (este se blurrea) */
+#main {
     transition: filter 0.3s ease;
 }
 
-body.blurred {
-    filter: blur(8px);
+#main.blurred {
+    filter: blur(6px);
 }
 
 .main-content {
@@ -38,7 +42,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 60px;
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -64,57 +68,56 @@ h1 {
     text-shadow: 2px 2px 0 #000;
 }
 
-/* Overlay */
+/* OVERLAY */
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
-    display: none;
+    background: rgba(0,0,0,0.65);
+    display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
 .overlay.active {
-    display: flex;
     opacity: 1;
+    pointer-events: all;
 }
 
-/* Panel */
+/* PANEL */
 .panel {
-    background: rgba(15,15,15,0.95);
+    background: rgba(20,20,20,0.95);
     padding: 40px;
-    border-radius: 16px;
-    max-width: 600px;
+    border-radius: 18px;
+    max-width: 650px;
     text-align: center;
     transform: scale(0.8);
-    opacity: 0;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .overlay.active .panel {
     transform: scale(1);
-    opacity: 1;
 }
 
 .panel h2 {
     font-family: 'Press Start 2P', cursive;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 25px;
 }
 
 .panel p {
     line-height: 1.7;
     font-size: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    white-space: pre-line;
 }
 
 .close-btn {
     background: #2ecc71;
     border: none;
-    padding: 12px 25px;
+    padding: 12px 30px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
@@ -128,6 +131,8 @@ h1 {
 </head>
 
 <body>
+
+<div id="main">
 
 <div class="main-content">
     <h1>Feliz San Valentín,<br>mi bouyangg 💚</h1>
@@ -149,7 +154,19 @@ h1 {
             <div class="chest-text">Mis momentos favs contigo ✨</div>
         </div>
 
+        <div onclick="openCofre('museo')">
+            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Nuestro museo 🏠</div>
+        </div>
+
+        <div onclick="openCofre('canciones')">
+            <div class="chest" style="background-image:url('https://wallpapers.com/images/hd/minecraft_-chest_-texture-6wi209fkpk1sv5o7.png');"></div>
+            <div class="chest-text">Canciones que me recuerdan a ti 🎵</div>
+        </div>
+
     </div>
+</div>
+
 </div>
 
 <!-- Overlay -->
@@ -165,33 +182,46 @@ h1 {
 
 function openCofre(tipo) {
 
-    document.body.classList.add("blurred");
+    document.getElementById("main").classList.add("blurred");
+    document.getElementById("overlay").classList.add("active");
 
-    const overlay = document.getElementById("overlay");
     const title = document.getElementById("panelTitle");
     const content = document.getElementById("panelContent");
 
     if(tipo === "dia"){
         title.innerText = "El día que nos amarramos ☠️";
-        content.innerText = "Oficialmente el día en que iniciamos la partida más importante de nuestras vidas.\n\nDesde ese momento supe que quería construir contigo algo más grande que cualquier mundo en Minecraft.\n\nSomos team. Somos casa. Somos futuro.";
+        content.innerText =
+        "Oficialmente iniciamos la partida más importante de nuestras vidas.\n\nDesde ese día supe que quería construir contigo algo real.\n\nSomos team. Somos casa. Somos futuro.";
     }
 
     if(tipo === "amo"){
         title.innerText = "Lo que más amo de ti 💚";
-        content.innerText = "Amo tu forma de ser, tu humor, tu lado romántico escondido y cómo haces que todo sea más divertido.\n\nIncluso cuando te robas el loot… igual te elijo.";
+        content.innerText =
+        "Amo tu humor.\nAmo tu lado romántico escondido.\nAmo cómo haces que todo sea más divertido.\n\nIncluso cuando te robas el loot… igual te elijo.";
     }
 
     if(tipo === "momentos"){
         title.innerText = "Mis momentos favs contigo ✨";
-        content.innerText = "Cuando jugamos hasta tarde.\nCuando vemos atardeceres en Minecraft.\nCuando haces bromas tontas.\n\nY cualquier momento donde estés tú.";
+        content.innerText =
+        "Cuando jugamos hasta tarde.\nCuando vemos atardeceres en Minecraft.\nCuando haces bromas tontas.\n\nY cualquier momento donde estés tú.";
     }
 
-    overlay.classList.add("active");
+    if(tipo === "museo"){
+        title.innerText = "Nuestro museo 🏠";
+        content.innerText =
+        "Aquí guardamos recuerdos que no caben en un cofre normal.\n\nFotos, risas y momentos que no tienen respawn.";
+    }
+
+    if(tipo === "canciones"){
+        title.innerText = "Canciones que me recuerdan a ti 🎵";
+        content.innerText =
+        "🎵 La que me pone feliz al pensarte.\n🎵 La más sentimental.\n🎵 Te la dedico mi corazone.";
+    }
 }
 
 function closeCofre(){
     document.getElementById("overlay").classList.remove("active");
-    document.body.classList.remove("blurred");
+    document.getElementById("main").classList.remove("blurred");
 }
 
 </script>
