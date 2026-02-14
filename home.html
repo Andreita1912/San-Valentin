@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz San Valentín</title>
+
+<!-- Fuente pixel estilo Minecraft -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://images.unsplash.com/photo-1611605698323-b1e99cfd37ea?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+/* Pantalla de carga */
+#loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: #00ff64;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    z-index: 9999;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 20px;
+    border: 2px solid #00ff64;
+    margin-top: 20px;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: #00ff64;
+}
+
+/* Contenido principal */
+.main-content {
+    display: none;
+    text-align: center;
+    padding: 100px 20px;
+    background: rgba(0, 0, 0, 0.6);
+    min-height: 100vh;
+    color: white;
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.block-button {
+    display: inline-block;
+    background: #3b8526;
+    color: white;
+    padding: 15px 25px;
+    margin: 10px;
+    text-decoration: none;
+    border: 3px solid #2d6b1c;
+    box-shadow: 4px 4px 0 #1f4d13;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.block-button:hover {
+    transform: translate(2px,2px);
+    box-shadow: 2px 2px 0 #1f4d13;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading-screen">
+    <div>Loading world...</div>
+    <div style="margin-top:15px;">Building our forever 💚</div>
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+</div>
+
+<div class="main-content" id="main-content">
+    <h1>Feliz San Valentín,<br>mi bouyangg 💚</h1>
+
+    <div>
+        <div class="block-button">El día que nos amarramos ☠️</div>
+        <div class="block-button">Lo que más amo de ti 💚</div>
+        <div class="block-button">Mis momentos favs contigo ✨</div>
+        <div class="block-button">Nuestro museo 🏠</div>
+        <div class="block-button">Canciones que me recuerdan a ti 🎵</div>
+    </div>
+</div>
+
+<!-- Sonido sutil -->
+<audio id="clickSound">
+<source src="https://www.myinstants.com/media/sounds/minecraft-click.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let progress = document.getElementById("progress");
+let width = 0;
+
+let interval = setInterval(function() {
+    if (width >= 100) {
+        clearInterval(interval);
+        document.getElementById("loading-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        document.getElementById("clickSound").play();
+    } else {
+        width++;
+        progress.style.width = width + "%";
+    }
+}, 20);
+</script>
+
+</body>
+</html>
