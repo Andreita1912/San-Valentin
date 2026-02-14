@@ -194,8 +194,8 @@ function toggleChest(num) {
     let chest = document.getElementById("chest"+num);
     let content = document.getElementById("content"+num);
 
-    // Safari-friendly audio
-    let sound = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
+    // SONIDO LOCAL (esto sí funciona)
+    let sound = new Audio("click.mp3");
     sound.play();
 
     if (content.style.display === "block") {
